@@ -6,6 +6,8 @@ import { manifest } from './manifest';
 import { ModulePageFrame } from '../../core/ModulePageFrame';
 import { ModuleModes } from '../../core/ModuleModes';
 import { downloadRunRecord } from '../../core/ui';
+import { ChallengeGame } from './challenge/ChallengeGame';
+import { PlayGame } from './play/PlayGame';
 
 interface ViewProps {
   inputs: Record<string, number>;
@@ -19,7 +21,11 @@ const View: React.FC<ViewProps> = ({ inputs, onChange }) => {
   return (
     <ModulePageFrame manifest={manifest}>
       <Explainer />
-      <ModuleModes explore={<BitflipVisualizer inputs={inputs} onChange={onChange} onExport={handleExport} />} />
+      <ModuleModes
+        explore={<BitflipVisualizer inputs={inputs} onChange={onChange} onExport={handleExport} />}
+        challenge={<ChallengeGame />}
+        play={<PlayGame />}
+      />
     </ModulePageFrame>
   );
 };

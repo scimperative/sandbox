@@ -6,6 +6,9 @@ const suites = [
   'src/modules/solar-power-budget/model.test.ts',
   'src/modules/solar-power-budget/challenge/challenge.test.ts',
   'src/modules/solar-power-budget/play/play.test.ts',
+  'src/modules/llm-bitflip-resilience/model.test.ts',
+  'src/modules/llm-bitflip-resilience/challenge/challenge.test.ts',
+  'src/modules/llm-bitflip-resilience/play/play.test.ts',
 ];
 
 console.log('Running test suites across all modules...\n');

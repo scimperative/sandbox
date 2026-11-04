@@ -2,7 +2,7 @@ import type { ChallengeEvaluation, ChallengeLevel } from '../../../core/challeng
 import { ORBIT_PRESETS } from '../visualizer/orbitPresets';
 import { PARAM_META } from '../visualizer/paramMeta';
 import { StatusBadge } from '../visualizer/StatusBadge';
-import { formatQuantity, formatWatts } from '../visualizer/format';
+import { formatQuantity } from '../visualizer/format';
 import type { ThermalStatus } from '../visualizer/types';
 import { CeilingBars } from './CeilingBars';
 import { FormulaLine } from './FormulaLine';
