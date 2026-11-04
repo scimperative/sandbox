@@ -2,7 +2,7 @@ import type { ChallengeEvaluation, ChallengeLevel } from '../../../core/challeng
 import { ORBIT_PRESETS } from '../visualizer/orbitPresets';
 import { PARAM_META } from '../visualizer/paramMeta';
 import { StatusBadge } from '../visualizer/StatusBadge';
-import { formatQuantity, formatWatts } from '../visualizer/format';
+import { formatQuantity } from '../visualizer/format';
 import type { ThermalStatus } from '../visualizer/types';
 import { CeilingBars } from './CeilingBars';
 import { FormulaLine } from './FormulaLine';
@@ -104,7 +104,6 @@ export function Reveal({
         </div>
         <div><span>Requested-load status</span><StatusBadge status={evaluation.status as ThermalStatus} /></div>
       </div>
-      <p className="challenge-marker-legend">White marker: requested compute load ({formatWatts(result.resolvedInputs.computeWattsRequested)}).</p>
       <CeilingBars evaluation={evaluation} requestedLoad={result.resolvedInputs.computeWattsRequested} />
       {result.values.orbitSunlitFraction < 1 && <p>Orbit sunlit fraction: {(result.values.orbitSunlitFraction * 100).toFixed(1)}%</p>}
       <p className="challenge-lesson">{level.lesson}</p>

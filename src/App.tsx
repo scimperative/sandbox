@@ -73,7 +73,7 @@ export function App() {
               alignItems: 'center',
               background: 'none',
               border: 'none',
-              color: 'var(--accent)',
+              color: 'var(--link)',
               cursor: 'pointer',
               fontWeight: 600,
               fontSize: '0.85rem',
@@ -93,7 +93,7 @@ export function App() {
               letterSpacing: '0.02em',
             }}
           >
-            SCI Sandbox v{BUILD_INFO.sandboxVersion}
+            SC Imperative Sandbox v{BUILD_INFO.sandboxVersion}
           </span>
         </nav>
         <div style={{ flex: 1 }}>
