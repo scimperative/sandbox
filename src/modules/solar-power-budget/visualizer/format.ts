@@ -35,8 +35,7 @@ export function formatCompact(value: number, unit: string, step: number): string
   else if (a >= 1e6) num = `${(value / 1e6).toFixed(2)}M`;
   else if (a >= 1e4) num = Math.round(value).toLocaleString('en-US');
   else {
-    const decimals = step >= 1 ? 0 : Math.min(3, (String(step).split('.')[1] || '').length);
-    num = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString();
+  const decimals = step >= 1 ? 0 : Math.min(4, (String(step).split('.')[1] || '').length);    num = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString();
   }
   return unit ? `${num} ${unit}` : num;
 }
