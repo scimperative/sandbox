@@ -9,7 +9,7 @@ export const PARAM_META: Record<keyof SolarState, ParamMeta> = {
     label: 'Solar Array Area',
     unit: 'm²',
     min: 0.1,
-    max: 100,
+    max: 105,
     step: 0.1,
     logScale: true,
     logFloor: 0.1,
