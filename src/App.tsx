@@ -113,8 +113,6 @@ export function App() {
     return (
       <AboutPage
         onGoHome={() => navigate({ view: 'home' })}
-        onShowSandbox={() => navigate({ view: 'sandbox' })}
-        onShowWorkshop={() => navigate({ view: 'workshop' })}
       />
     );
   }

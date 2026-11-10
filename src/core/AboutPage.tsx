@@ -1,7 +1,5 @@
 interface AboutPageProps {
   onGoHome: () => void;
-  onShowSandbox: () => void;
-  onShowWorkshop: () => void;
 }
 
 const ABOUT_PAGE_CONTENT = (
@@ -39,7 +37,7 @@ const ABOUT_PAGE_CONTENT = (
   </>
 );
 
-export function AboutPage({ onGoHome, onShowSandbox, onShowWorkshop }: AboutPageProps) {
+export function AboutPage({ onGoHome }: AboutPageProps) {
   return (
     <div
       style={{
