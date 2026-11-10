@@ -76,6 +76,12 @@ export const HomePage: React.FC<HomePageProps> = ({ modules, view, onSelectModul
           </div>
           <hr className="home-front-door__divider" />
           <div className="home-front-door__actions">
+            <button onClick={onShowSandbox} className="home-cta home-cta--outlined">
+              Sandbox
+            </button>
+            <button onClick={onShowWorkshop} className="home-cta home-cta--outlined">
+              Workshop
+            </button>
             <a
               href="https://scimperative.substack.com/"
               target="_blank"
@@ -84,12 +90,6 @@ export const HomePage: React.FC<HomePageProps> = ({ modules, view, onSelectModul
             >
               Library
             </a>
-            <button onClick={onShowSandbox} className="home-cta home-cta--outlined">
-              Sandbox
-            </button>
-            <button onClick={onShowWorkshop} className="home-cta home-cta--outlined">
-              Workshop
-            </button>
           </div>
           <nav aria-label="External links" className="home-front-door__links">
             {[

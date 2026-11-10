@@ -27,61 +27,83 @@ const RUN_PARTS: [string, string][] = [
 
 export function WorkshopPage({ onGoHome, onShowSandbox }: WorkshopPageProps) {
   return (
-    <div style={{ width: '100%', minHeight: '100vh', background: 'var(--bg)', color: 'var(--text)' }}>
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '1.75rem 1.5rem 3rem',
-          fontFamily: 'var(--sans)',
-          color: 'var(--text)',
-        }}
-      >
-        <a
-          href={window.location.pathname}
-          className="about-page__back"
-          onClick={(event) => {
-            event.preventDefault();
-            onGoHome();
+    <div
+      style={{
+        maxWidth: '900px',
+        margin: '0 auto',
+        padding: '3.5rem 1.5rem 4rem',
+        fontFamily: 'var(--sans)',
+        color: 'var(--text)',
+      }}
+    >
+      <header style={{ marginBottom: '2rem' }}>
+        <button
+          onClick={onGoHome}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            background: 'none',
+            border: 'none',
+            color: 'var(--link)',
+            cursor: 'pointer',
+            font: '600 0.9rem var(--sans)',
+            padding: '0 0 1rem',
           }}
         >
           ← Home
-        </a>
-        <header
+        </button>
+        <h1 style={{ marginBottom: '0.5rem' }}>Workshop</h1>
+        <p style={{ color: 'var(--text)', lineHeight: 1.6 }}>
+          Our hardware testbed. Each run is one physical measurement of one question, set against the{' '}
+          <a
+            href="?view=sandbox"
+            onClick={(event) => {
+              event.preventDefault();
+              onShowSandbox();
+            }}
+            style={{ color: 'var(--link)' }}
+          >
+            Sandbox
+          </a>{' '}
+          model's prediction, so the gap between model and reality is visible and checkable.
+        </p>
+      </header>
+
+      <section style={{ marginBottom: '2.5rem' }}>
+        <h2
           style={{
-            marginBottom: '2rem',
-            paddingBottom: '1.25rem',
-            borderBottom: '1px solid var(--border)',
+            fontSize: '1rem',
+            fontWeight: 600,
+            color: 'var(--text-h)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.04em',
+            marginBottom: '1.25rem',
           }}
         >
-          <h1
-            style={{
-              fontSize: '1.75rem',
-              fontWeight: 700,
-              color: 'var(--text-h)',
-              letterSpacing: '-0.025em',
-              margin: '0 0 0.4rem',
-              lineHeight: 1.2,
-            }}
-          >
-            Workshop
-          </h1>
-          <p style={{ margin: 0, lineHeight: 1.6 }}>
-            Our hardware testbed. Each run is one physical measurement of one question, set against the{' '}
-            <a
-              href={window.location.pathname}
-              onClick={(event) => {
-                event.preventDefault();
-                onShowSandbox();
-              }}
-            >
-              Sandbox
-            </a>{' '}
-            model's prediction, so the gap between model and reality is visible and checkable.
-          </p>
-        </header>
+          What a run contains
+        </h2>
+        <ul style={{ lineHeight: 1.6, paddingLeft: '1.25rem', margin: '0 0 1rem' }}>
+          {RUN_PARTS.map(([label, text]) => (
+            <li key={label}>
+              <strong>{label}:</strong> {text}
+            </li>
+          ))}
+        </ul>
+        <p style={{ lineHeight: 1.6, margin: 0 }}>
+          Verification rigs: ASUS TUF A14, Jetson, Raspberry Pi. Runs arrive when a measurement is ready, not on a
+          schedule.
+        </p>
+      </section>
 
-        <main className="about-page__content">
+      <section>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '1.25rem',
+          }}
+        >
           <h2
             style={{
               fontSize: '1rem',
@@ -91,89 +113,70 @@ export function WorkshopPage({ onGoHome, onShowSandbox }: WorkshopPageProps) {
               letterSpacing: '0.04em',
             }}
           >
-            What a run contains
+            Runs
           </h2>
-          <ul style={{ lineHeight: 1.6, paddingLeft: '1.25rem' }}>
-            {RUN_PARTS.map(([label, text]) => (
-              <li key={label}>
-                <strong>{label}:</strong> {text}
-              </li>
-            ))}
-          </ul>
-          <p>
-            Verification rigs: ASUS TUF A14, Jetson, Raspberry Pi. Runs arrive when a measurement is ready, not on a
-            schedule.
-          </p>
-
-          <div
+          <span
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              margin: '2rem 0 1.25rem',
+              fontSize: '0.8rem',
+              color: 'var(--text-muted)',
+              fontFamily: 'var(--mono)',
             }}
           >
-            <h2
-              style={{
-                margin: 0,
-                fontSize: '1rem',
-                fontWeight: 600,
-                color: 'var(--text-h)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.04em',
-              }}
-            >
-              Runs
-            </h2>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'var(--mono)' }}>
-              {RUNS.length} published
-            </span>
-          </div>
+            {RUNS.length} published
+          </span>
+        </div>
 
-          {RUNS.length === 0 ? (
-            <p style={{ color: 'var(--text-muted)' }}>No runs published yet.</p>
-          ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
-              {RUNS.map((run) => (
-                <a
-                  key={run.id}
-                  href={run.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+        {RUNS.length === 0 ? (
+          <p style={{ color: 'var(--text-muted)', margin: 0 }}>No runs published yet.</p>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+            {RUNS.map((run) => (
+              <a
+                key={run.id}
+                href={run.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'block',
+                  border: '1px solid var(--card-border)',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
+                  backgroundColor: 'var(--card-bg)',
+                  boxShadow: 'var(--shadow-sm)',
+                  textDecoration: 'none',
+                  color: 'var(--text)',
+                }}
+              >
+                <h3
                   style={{
-                    display: 'block',
-                    border: '1px solid var(--card-border)',
-                    borderRadius: '12px',
-                    padding: '1.5rem',
-                    backgroundColor: 'var(--card-bg)',
-                    boxShadow: 'var(--shadow-sm)',
-                    textDecoration: 'none',
-                    color: 'var(--text)',
+                    margin: '0 0 0.25rem',
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    color: 'var(--text-h)',
+                    lineHeight: 1.3,
                   }}
                 >
-                  <h3 style={{ margin: '0 0 0.25rem', fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-h)' }}>
-                    {run.title}
-                  </h3>
-                  <div
-                    style={{
-                      fontSize: '0.8rem',
-                      fontFamily: 'var(--mono)',
-                      color: 'var(--text-muted)',
-                      marginBottom: '0.75rem',
-                    }}
-                  >
-                    {run.date}
-                  </div>
-                  <p style={{ margin: '0 0 0.5rem', lineHeight: 1.55 }}>{run.question}</p>
-                  <p style={{ margin: 0, fontFamily: 'var(--mono)', fontSize: '0.85rem' }}>
-                    Predicted {run.prediction} · Measured {run.measured} · Gap {run.gap}
-                  </p>
-                </a>
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
+                  {run.title}
+                </h3>
+                <div
+                  style={{
+                    fontSize: '0.8rem',
+                    fontFamily: 'var(--mono)',
+                    color: 'var(--text-muted)',
+                    marginBottom: '0.75rem',
+                  }}
+                >
+                  {run.date}
+                </div>
+                <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', lineHeight: 1.55 }}>{run.question}</p>
+                <p style={{ margin: 0, fontFamily: 'var(--mono)', fontSize: '0.85rem' }}>
+                  Predicted {run.prediction} · Measured {run.measured} · Gap {run.gap}
+                </p>
+              </a>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
