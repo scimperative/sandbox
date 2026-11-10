@@ -23,7 +23,7 @@ const ABOUT_PAGE_CONTENT = (
       The work is driven by my curiosity across fields such as artificial intelligence (AI), space, defence, semiconductors, macroeconomics, supply chains, geopolitics, and critical infrastructure.
     </p>
     <p>
-      My perspective is shaped by a career across the aeronautical, space, and defence industries as an AI engineer, published researcher in explainable AI, and builder of autonomous systems across spacecraft, aircraft, missile defence, and radar platforms in Australia and Europe (see my experience on {' '}<a href="https://patrickxcapaldo.github.io/" target="_blank" rel="noopener noreferrer"> my personal website </a>{' '} and{' '}<a href="https://www.linkedin.com/in/patrickxcapaldo/?isSelfProfile=true" target="_blank" rel="noopener noreferrer"> my LinkedIn profile </a>).
+      My perspective is shaped by a career across the aeronautical, space, and defence industries as an AI engineer, published researcher in explainable AI, and builder of autonomous systems across spacecraft, aircraft, missile defence, and radar platforms in Australia and Europe (see my experience on {' '}<a href="https://patrickxcapaldo.github.io/" target="_blank" rel="noopener noreferrer"> my personal website </a>{' '} and{' '}<a href="https://www.linkedin.com/in/patrickxcapaldo/?isSelfProfile=true" target="_blank" rel="noopener noreferrer"> LinkedIn profile </a>).
     </p>
     <p>
       The motivation is to reason upwards from the underlying constraints to where we stand today, and where we may be going as a civilisation tomorrow.
