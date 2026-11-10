@@ -6,11 +6,12 @@ interface HomePageProps {
   view: 'home' | 'sandbox';
   onSelectModule: (id: string) => void;
   onShowSandbox: () => void;
+  onShowWorkshop: () => void;
   onShowAbout: () => void;
   onGoHome: () => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ modules, view, onSelectModule, onShowSandbox, onShowAbout, onGoHome }) => {
+export const HomePage: React.FC<HomePageProps> = ({ modules, view, onSelectModule, onShowSandbox, onShowWorkshop, onShowAbout, onGoHome }) => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const isSandbox = view === 'sandbox';
 
@@ -81,13 +82,13 @@ export const HomePage: React.FC<HomePageProps> = ({ modules, view, onSelectModul
               rel="noopener noreferrer"
               className="home-cta home-cta--outlined"
             >
-              Stories
+              Library
             </a>
-            <button
-              onClick={onShowSandbox}
-              className="home-cta home-cta--outlined"
-            >
+            <button onClick={onShowSandbox} className="home-cta home-cta--outlined">
               Sandbox
+            </button>
+            <button onClick={onShowWorkshop} className="home-cta home-cta--outlined">
+              Workshop
             </button>
           </div>
           <nav aria-label="External links" className="home-front-door__links">
