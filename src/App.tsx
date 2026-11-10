@@ -3,18 +3,27 @@ import { getAllModules, getModuleById } from './core/registry';
 import { ModuleShell } from './core/ModuleShell';
 import { HomePage } from './core/HomePage';
 import { AboutPage } from './core/AboutPage';
+import { WorkshopPage } from './core/WorkshopPage';
 import { BUILD_INFO } from './core/buildInfo';
+
+type View = 'home' | 'sandbox' | 'about' | 'workshop';
+
+const VIEWS: View[] = ['sandbox', 'about', 'workshop'];
+
+const PAGE_TITLES: Record<View, string> = {
+  home: 'Silicon Carbide Imperative',
+  sandbox: 'Sandbox · Silicon Carbide Imperative',
+  about: 'About · Silicon Carbide Imperative',
+  workshop: 'Workshop · Silicon Carbide Imperative',
+};
 
 export function App() {
   const readRoute = () => {
     const params = new URLSearchParams(window.location.search);
+    const requested = params.get('view') as View | null;
     return {
       moduleId: params.get('module'),
-      view: params.get('view') === 'sandbox'
-        ? 'sandbox' as const
-        : params.get('view') === 'about'
-          ? 'about' as const
-          : 'home' as const,
+      view: requested && VIEWS.includes(requested) ? requested : ('home' as View),
     };
   };
   const [route, setRoute] = useState(readRoute);
@@ -31,19 +40,16 @@ export function App() {
   useEffect(() => {
     document.title = currentModule
       ? currentModule.manifest.title
-        : route.view === 'sandbox'
-          ? 'Sandbox · Silicon Carbide Imperative'
-          : route.view === 'about'
-            ? 'About · Silicon Carbide Imperative'
-            : 'Silicon Carbide Imperative';
+      : PAGE_TITLES[route.view];
   }, [currentModule, route.view]);
 
-  const navigate = (nextRoute: { moduleId?: string; view?: 'home' | 'sandbox' | 'about' }) => {
+  const navigate = (nextRoute: { moduleId?: string; view?: View }) => {
     const url = new URL(window.location.href);
     url.search = '';
     if (nextRoute.moduleId) url.searchParams.set('module', nextRoute.moduleId);
-    if (nextRoute.view === 'sandbox') url.searchParams.set('view', 'sandbox');
-    if (nextRoute.view === 'about') url.searchParams.set('view', 'about');
+    if (nextRoute.view && nextRoute.view !== 'home') {
+      url.searchParams.set('view', nextRoute.view);
+    }
     window.history.pushState({}, '', url.toString());
     setRoute({ moduleId: nextRoute.moduleId ?? null, view: nextRoute.view ?? 'home' });
   };
@@ -108,6 +114,16 @@ export function App() {
       <AboutPage
         onGoHome={() => navigate({ view: 'home' })}
         onShowSandbox={() => navigate({ view: 'sandbox' })}
+        onShowWorkshop={() => navigate({ view: 'workshop' })}
+      />
+    );
+  }
+
+  if (route.view === 'workshop') {
+    return (
+      <WorkshopPage
+        onGoHome={() => navigate({ view: 'home' })}
+        onShowSandbox={() => navigate({ view: 'sandbox' })}
       />
     );
   }
@@ -118,6 +134,7 @@ export function App() {
       view={route.view}
       onSelectModule={(id) => navigate({ moduleId: id })}
       onShowSandbox={() => navigate({ view: 'sandbox' })}
+      onShowWorkshop={() => navigate({ view: 'workshop' })}
       onShowAbout={() => navigate({ view: 'about' })}
       onGoHome={() => navigate({ view: 'home' })}
     />

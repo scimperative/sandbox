@@ -1,6 +1,7 @@
 interface AboutPageProps {
   onGoHome: () => void;
   onShowSandbox: () => void;
+  onShowWorkshop: () => void;
 }
 
 const ABOUT_PAGE_CONTENT = (
@@ -12,32 +13,24 @@ const ABOUT_PAGE_CONTENT = (
       Their compound, silicon carbide, fraught with difficulty in its creation, exists to handle the most adverse of physical environments that are defined by extreme temperatures, pressures, and voltages where either constituent alone can fail.
     </p>
     <p>
-      I believe the most imperative challenges of the coming decades will emerge at similarly demanding interfaces, that is, where digital systems meet the physical world, where machines meet humans, and where technological capabilities reshape ordinary lives, organisations, and nations.
+      I believe the most imperative challenges of the coming decades will emerge at similarly demanding interfaces: where digital intelligence meets biological intelligence, where software encounters real-world friction, and where machines meet humans, reshaping ordinary lives, organisations, and nations.
     </p>
     <p>
-      <em>Silicon Carbide Imperative</em> (SC Imperative) is an independent publication exploring these crucial interfaces from first principles. It investigates what happens when digital intelligence meets biological intelligence, when software encounters real-world friction, and when machines meet humans.
+      <em>Silicon Carbide Imperative</em> (SC Imperative) is an educational initiative that explores these interfaces from first principles, building intuition by identifying binding constraints: what currently limits a system and what changes once it is addressed.
     </p>
     <p>
-      The various facets are driven by my curiosity across fields such as artificial intelligence (AI), space, defence, semiconductors, macroeconomics, sovereign supply chains, geopolitics, and critical infrastructure.
+      It has three parts: the <strong>Library</strong>, the <strong>Sandbox</strong>, and the <strong>Workshop</strong>. The Library is our written research, with the maths shown so it can be verified, contested, or extended. The Sandbox is a set of open-source browser tools that make system limits visible and interactive. The Workshop is a hardware testbed that publishes physical measurements, each set against the model's prediction, with the raw data and the gap between them.
     </p>
     <p>
-      My perspective is shaped by a career across the aeronautical, space, and
-      defence industries as an AI engineer, published researcher in explainable
-      AI, and builder of autonomous systems across spacecraft, aircraft, missile
-      defence, and radar platforms in Australia and Europe (see my experience{' '}
-      <a href="https://patrickxcapaldo.github.io/" target="_blank" rel="noopener noreferrer">
-        here
-      </a>{' '}
-      and{' '}
-      <a href="https://www.linkedin.com/in/patrickxcapaldo/?isSelfProfile=true" target="_blank" rel="noopener noreferrer">
-        here
-      </a>
-      ).
+      The work is driven by my curiosity across fields such as artificial intelligence (AI), space, defence, semiconductors, macroeconomics, supply chains, geopolitics, and critical infrastructure.
     </p>
     <p>
-      The motivation behind the publication is to understand these systems from first principles and reason upwards to appreciate where we stand today and where we may be going as a civilisation tomorrow.
+      My perspective is shaped by a career across the aeronautical, space, and defence industries as an AI engineer, published researcher in explainable AI, and builder of autonomous systems across spacecraft, aircraft, missile defence, and radar platforms in Australia and Europe (see my experience{' '}<a href="https://patrickxcapaldo.github.io/" target="_blank" rel="noopener noreferrer"> here </a>{' '} and{' '}<a href="https://www.linkedin.com/in/patrickxcapaldo/?isSelfProfile=true" target="_blank" rel="noopener noreferrer"> here</a>).
     </p>
-    <p>If you are interested in taking this journey with me, subscribe and join in.</p>
+    <p>
+      The motivation is to reason upwards from the underlying constraints to where we stand today, and where we may be going as a civilisation tomorrow.
+    </p>
+    <p>If you are curious whether a technology claim holds up, read a piece, move the sliders, compare the model with the measurements, and check my numbers. Subscribe if you would like to follow along.</p>
     <p className="about-page__disclaimer">
       <em>
         This is a personal, independent effort written in a purely private capacity, using only publicly available information, for the sole purpose of education. All views and works are exclusively those of the author and do not derive from, nor represent the views or works of, any past, present, or future employers, clients, or affiliated organisations.
@@ -46,7 +39,7 @@ const ABOUT_PAGE_CONTENT = (
   </>
 );
 
-export function AboutPage({ onGoHome, onShowSandbox }: AboutPageProps) {
+export function AboutPage({ onGoHome, onShowSandbox, onShowWorkshop }: AboutPageProps) {
   return (
     <div
       style={{
@@ -104,10 +97,13 @@ export function AboutPage({ onGoHome, onShowSandbox }: AboutPageProps) {
               rel="noopener noreferrer"
               className="home-cta home-cta--outlined"
             >
-              Stories
+              Library
             </a>
             <button className="home-cta home-cta--outlined" onClick={onShowSandbox}>
               Sandbox
+            </button>
+            <button className="home-cta home-cta--outlined" onClick={onShowWorkshop}>
+              Workshop
             </button>
           </div>
         </main>
