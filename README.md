@@ -1,6 +1,6 @@
 # Silicon Carbide Imperative Sandbox (`SC Imperative Sandbox`)
 
-![Silicon Carbide Imperative Sandbox](public/silicon_carbide_sandbox_image.png)
+![Silicon Carbide Imperative Sandbox](assets/silicon_carbide_sandbox_image.png)
 
 > **A first-principles physics and engineering workbench built alongside the [Silicon Carbide Imperative](https://scimperative.substack.com) publication.**
 
@@ -147,7 +147,7 @@ npm ci
 npm run replay -- /path/to/downloaded-article-run-record.json
 ```
 
-Download the JSON from its GitHub permalink before checking out the recorded source commit; the run record may have been committed after that source commit. The replay command rejects dirty records and mismatched Sandbox versions, commits, module releases, or contracts, then verifies resolved inputs, outputs, status, and diagnostics. The module-specific citation and replay steps are in [`src/modules/orbital-thermal-limits/README.md`](src/modules/orbital-thermal-limits/README.md).
+Download the JSON from its GitHub permalink before checking out the recorded source commit; the run record may have been committed after that source commit. The replay command rejects dirty records and mismatched Sandbox versions, commits, module releases, or contracts, then verifies resolved inputs, outputs, status, and diagnostics. The module-specific citation and replay steps are in [`modules/orbital-thermal-limits/README.md`](modules/orbital-thermal-limits/README.md).
 
 Historical ledger entries that say `orbital-thermal-limits@1.0.0` predate immutable module releases and refer to the descriptor's former contract version. Their original claims are preserved; see [erratum E-0002](data/ledger/errata.yaml). Do not treat those labels as proof that a tagged historical build exists.
 
@@ -173,7 +173,7 @@ Every module states, as structured data rather than prose, what it deliberately 
 
 Contributions of new deterministic physics modules are welcome.
 
-1. Copy `src/modules/_template` to `src/modules/your-module-id`.
+1. Copy `modules/_template` to `modules/your-module-id`.
 2. Write the physics in `sandbox/kernel.ts`. It must import nothing, hold no state, and return full-precision values in canonical units.
 3. Declare the module in `sandbox/module.ts`: give every input and output a stable key, a unit, a physical dimension and a description, give inputs a default and a supported range, and list the assumptions the model makes.
 4. Write `model.ts` as a formatting adapter only. No physics belongs here.
@@ -191,7 +191,7 @@ Contributions of new deterministic physics modules are welcome.
 
 ## Repository status notes
 
-The module contract is located at `src/core/contract.ts`, and core orbital mechanics algorithms are located at `src/core/orbitalMechanics.ts`. All modules import from these shared cores, maintaining consistent typing, dimension checks, and Kepler propagation across the sandbox ecosystem.
+The module contract is located at `core/contract.ts`, and core orbital mechanics algorithms are located at `core/orbitalMechanics.ts`. All modules import from these shared cores, maintaining consistent typing, dimension checks, and Kepler propagation across the sandbox ecosystem.
 
 ---
 
