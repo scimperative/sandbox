@@ -1,0 +1,42 @@
+import type { Manifest } from '../../core/types';
+import { equations } from './equations';
+import { MODULE_RELEASE_VERSION, MODULE_CONTRACT_VERSION } from './version';
+import { DAWN_DUSK_SSO_ORBIT } from './sandbox/orbitalMechanics';
+
+export const manifest: Manifest = {
+  id: 'orbital-thermal-limits',
+  releaseVersion: MODULE_RELEASE_VERSION,
+  contractVersion: MODULE_CONTRACT_VERSION,
+  title: 'Orbital Compute Thermal Rejection Limits',
+  summary: 'Interactive first-order thermal balance for a spacecraft radiator in Earth orbit, including solar, albedo, Earth IR, coolant transport, and orbital geometry.',
+  realism: 'Estimate',
+  scope: 'Steady-state, orbit-averaged first-order balance. No thermal mass, battery or transient temperatures, and a simplified Earth view factor and Sun geometry.',
+  tags: ['space', 'thermal-physics', 'orbital-compute', 'ai-infrastructure'],
+  relatedArticles: [],
+  interfaces: ['solar-power-budget'],
+  parameters: [
+    { id: 'radiatorArea', name: 'Radiator Surface Area', unit: 'm²', min: 0.5, max: 20, step: 0.5, defaultValue: 2, description: 'Total two-sided radiator area used by the thermal model.' },
+    { id: 'emissivity', name: 'IR Emissivity', unit: 'ε', min: 0.5, max: 0.99, step: 0.01, defaultValue: 0.9, description: 'Long-wave infrared emissivity.' },
+    { id: 'solarAbsorptivity', name: 'Solar Absorptivity', unit: 'α', min: 0.02, max: 0.8, step: 0.01, defaultValue: 0.12, description: 'Fraction of incident solar energy absorbed by the radiator coating.' },
+    { id: 'operatingTempC', name: 'Radiator Temperature', unit: '°C', min: 20, max: 180, step: 1, defaultValue: 70, description: 'Radiator/coolant hot-side temperature.' },
+    { id: 'flowRateKgS', name: 'Coolant Flow', unit: 'kg/s', min: 0.01, max: 1.5, step: 0.01, defaultValue: 0.35, description: 'Mass flow rate of a single-phase, space-grade dielectric coolant such as Galden PFPE.' },
+    { id: 'sunIncidence', name: 'Sun Incidence', unit: '0-1', min: 0, max: 1, step: 0.01, defaultValue: 0.75, description: 'Cosine-like incidence factor between radiator normal and the Sun.' },
+    { id: 'sinkTempK', name: 'Space Sink', unit: 'K', min: 3, max: 250, step: 1, defaultValue: 180, description: 'Effective deep-space background temperature.' },
+    { id: 'earthIrTempK', name: 'Earth IR', unit: 'K', min: 180, max: 320, step: 1, defaultValue: 255, description: 'Effective Earth infrared radiating temperature.' },
+    { id: 'earthAlbedo', name: 'Earth Albedo', unit: '0-1', min: 0, max: 0.9, step: 0.01, defaultValue: 0.3, description: 'Fraction of incident solar radiation reflected by Earth.' },
+    { id: 'earthViewFactor', name: 'Earth View Factor', unit: '0-1', min: 0, max: 1, step: 0.01, defaultValue: 0.35, description: 'Fraction of radiator field of view occupied by Earth.' },
+    { id: 'coolantDeltaT', name: 'Coolant ΔT', unit: 'K', min: 1, max: 80, step: 1, defaultValue: 10, description: 'Allowed coolant temperature rise across the payload.' },
+    { id: 'parasiticHeatW', name: 'Parasitic Heat', unit: 'W', min: 0, max: 500, step: 5, defaultValue: 40, description: 'Pumps, avionics, harness and other non-compute heat entering the loop. It is also used as a proxy for non-compute bus electrical draw in the power budget.' },
+    { id: 'computeWattsRequested', name: 'Requested Compute Power', unit: 'W', min: 0, max: 5000, step: 10, defaultValue: 300, description: 'Continuous AI compute electrical power the operator wants to run; treated as fully converting to waste heat. For example, a single H100-class GPU is about 700 W and a GB300-class GPU is about 1,400 W.' },
+    { id: 'solarPanelAreaM2', name: 'Solar Array Area', unit: 'm²', min: 0.5, max: 30, step: 0.5, defaultValue: 4, description: 'Total active solar cell area across both deployed array wings.' },
+    { id: 'solarPanelEfficiency', name: 'Solar Cell Efficiency', unit: 'η', min: 0.05, max: 0.4, step: 0.01, defaultValue: 0.29, description: 'Net array electrical efficiency, covering cell, packing and wiring losses. About 0.29 is representative of modern triple-junction space cells.' },
+    { id: 'solarPanelPointingFactor', name: 'Solar Pointing Accuracy', unit: '0-1', min: 0, max: 1, step: 0.01, defaultValue: 0.95, description: 'How well the single-axis-tracking array is aimed at the Sun, where 1 is perfect tracking.' },
+    { id: 'orbitEccentricity', name: 'Eccentricity', unit: 'e', min: 0, max: 0.75, step: 0.01, defaultValue: DAWN_DUSK_SSO_ORBIT.orbitEccentricity, description: 'Orbital eccentricity. A value of 0 is circular, rising to about 0.74 for a Molniya-type highly elliptical orbit.' },
+    { id: 'orbitAltitudeKm', name: 'Perigee Altitude', unit: 'km', min: 160, max: 40000, step: 10, defaultValue: DAWN_DUSK_SSO_ORBIT.orbitAltitudeKm, description: 'Altitude above mean Earth radius at closest approach (perigee).' },
+    { id: 'orbitInclinationDeg', name: 'Inclination', unit: '°', min: 0, max: 98, step: 1, defaultValue: DAWN_DUSK_SSO_ORBIT.orbitInclinationDeg, description: 'Orbital inclination. A major factor, together with RAAN, in how much of the orbit falls in Earth\u2019s shadow, which now feeds directly into the power budget.' },
+    { id: 'orbitRaanDeg', name: 'RAAN', unit: '°', min: 0, max: 360, step: 1, defaultValue: DAWN_DUSK_SSO_ORBIT.orbitRaanDeg, description: 'Right ascension of the ascending node. Rotates the orbital plane relative to the fixed Sun direction used here, which can noticeably shift eclipse duration.' },
+    { id: 'orbitArgumentDeg', name: 'Argument of Perigee', unit: '°', min: 0, max: 360, step: 1, defaultValue: 0, description: 'Rotates the ellipse within its orbital plane, determining where perigee points. It only has a visible effect when eccentricity is greater than 0.' },
+    { id: 'orbitPhaseDeg', name: 'Orbital Phase', unit: '°', min: 0, max: 360, step: 1, defaultValue: DAWN_DUSK_SSO_ORBIT.orbitPhaseDeg, description: 'Satellite true anomaly, meaning its position around the orbit measured from perigee. It can be played forward automatically using real Kepler propagation.' },
+  ],
+  equations,
+};
