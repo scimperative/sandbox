@@ -206,7 +206,7 @@ const DERIVED: Record<string, (i: ThermalKernelInputs, o: ThermalKernelOutputs) 
 };
 
 function checkGoldenVectors(): void {
-  const path = fileURLToPath(new URL('../../../data/golden-vectors/orbital-thermal-limits.json', import.meta.url));
+  const path = fileURLToPath(new URL('../../data/golden-vectors/orbital-thermal-limits.json', import.meta.url));
   const doc: { vectors: GoldenVector[] } = JSON.parse(readFileSync(path, 'utf8'));
   const relTol = 1e-6; // generous vs. the 1e-9 the vectors were generated at, to tolerate JS float rounding across two separate compiles
 

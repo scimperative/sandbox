@@ -125,7 +125,7 @@ function modResultValues(res: ReturnType<typeof solarPowerBudget.run>): Record<s
 
 // 6. Golden Vector Verification
 {
-  const gvPath = fileURLToPath(new URL('../../../data/golden-vectors/solar-power-budget.json', import.meta.url));
+  const gvPath = fileURLToPath(new URL('../../data/golden-vectors/solar-power-budget.json', import.meta.url));
   const doc = JSON.parse(readFileSync(gvPath, 'utf8')) as {
     vectors: Array<{
       id: string;

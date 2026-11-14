@@ -439,7 +439,7 @@ function rel(a: number, b: number, tol: number, message: string): void {
 
 /* 10. Golden vectors ------------------------------------------------- */
 {
-  const gvPath = fileURLToPath(new URL('../../../data/golden-vectors/llm-bitflip-resilience.json', import.meta.url));
+  const gvPath = fileURLToPath(new URL('../../data/golden-vectors/llm-bitflip-resilience.json', import.meta.url));
   const doc = JSON.parse(readFileSync(gvPath, 'utf8')) as {
     vectors: Array<{ id: string; inputs: Record<string, number>; expect: Record<string, number>; note?: string }>;
   };
