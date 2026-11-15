@@ -1,6 +1,6 @@
 # Silicon Carbide Imperative Sandbox (`SC Imperative Sandbox`)
 
-![Silicon Carbide Imperative Sandbox](assets/sandbox_01.png)
+![Silicon Carbide Imperative Sandbox](assets/sandbox_01.jpg)
 
 > **A first-principles physics and engineering workbench built alongside the [Silicon Carbide Imperative](https://scimperative.substack.com) publication.**
 
