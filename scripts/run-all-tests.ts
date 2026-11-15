@@ -19,9 +19,9 @@ for (const suite of suites) {
     await import(`../${suite}`);
     console.log(`=== Passed: ${suite} ===\n`);
   } catch (err) {
-    console.error(`\nâŒ Failed: ${suite}`, err);
+    console.error(`\nERROR: Failed: ${suite}`, err);
     process.exit(1);
   }
 }
 
-console.log('âœ… All module test suites passed successfully.');
+console.log('PASS: All module test suites passed successfully.');

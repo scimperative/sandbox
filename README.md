@@ -43,26 +43,25 @@ Whether the subject is orbital compute thermal limits, radar range equations or 
 
 ### Prerequisites
 
-- Node.js (v22.12 or later)
+- Node.js (v22.13 or a compatible supported release)
 - `npm`
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/scimperative/sandbox.git
+# Clone the website and its source submodules
+git clone --recurse-submodules https://github.com/scimperative/scimperative.com.git
 
-# Navigate to the project directory
-cd sandbox
+# Run commands from the website repository root
+cd scimperative.com
 
-# Install dependencies
-npm install
+npm ci
 
 # Start the development server
 npm run dev
 ```
 
-Open `http://localhost:5173` in your browser to interact with the local sandbox.
+Open `http://localhost:5173` in your browser. The website repository owns the app dependencies and consumes this repository as the `sandbox` submodule.
 
 ---
 
@@ -70,9 +69,8 @@ Open `http://localhost:5173` in your browser to interact with the local sandbox.
 
 ```
 scripts/
-├── generate-meta.js       # Auto-generates SEO meta tags from modules on build
 ├── run-all-tests.ts       # Runs model tests across the ecosystem
-└── replay-run.ts          # Verifies and replays exported run JSON records
+└── replay-run.ts          # Verifies exported run JSON records
 src/
 ├── core/                  # Engine interfaces, registry and generic UI shell
 │   ├── contract.ts        # Ecosystem module contract: dimensioned ports,
@@ -139,9 +137,11 @@ Any released version is immutable. A correction creates a new version and releas
 
 The orbital module's **Export run JSON** control downloads the exact model inputs, resolved inputs, full-precision outputs, status, diagnostics, declared assumptions, module and Sandbox versions, source commit, and a schema version. UI-only orbit animation state is excluded because it does not affect the calculation. Special non-finite outputs are represented by the strings `"Infinity"`, `"-Infinity"`, or `"NaN"` so JSON does not silently turn them into `null`. The `assumptionRegistryRevisions` array is empty by default because registry entries are not yet linked to module assumptions automatically; add relevant `{ "id", "revision" }` entries when a published analysis relies on registry values.
 
-For an article, commit its exported record under `data/runs/` and cite the GitHub permalinks for the Sandbox release/tag and run-record file. A record exported from a dirty working tree is marked `sourceDirty: true`; do not present that as a replayable release. The live site is not version-hosted: GitHub preserves the code and data, and readers can check out the tag locally to replay the calculation.
+For an article, commit its exported record under `data/runs/` and cite the GitHub permalinks for the Sandbox release/tag and run-record file. A record exported from a dirty working tree is marked `sourceDirty: true`; do not present that as a replayable release. The run record's source commit identifies the website integration commit, so check out that commit in `scimperative.com` to replay it.
 
 ```bash
+git clone --recurse-submodules https://github.com/scimperative/scimperative.com.git
+cd scimperative.com
 git checkout --detach <recorded-source-commit>
 npm ci
 npm run replay -- /path/to/downloaded-article-run-record.json
