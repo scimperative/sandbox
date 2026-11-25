@@ -25,6 +25,8 @@ const INITIAL_STATE: ThermalState = {
 type ThermalVisualizerProps = { initialState?: Partial<ThermalState>; onStateChange?: (state: ThermalState) => void; onExport?: () => void; };
 
 export function ThermalVisualizer({ initialState = INITIAL_STATE, onStateChange, onExport }: ThermalVisualizerProps) {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => { setIsClient(true); }, []);
   const [state, setState] = useState<ThermalState>({ ...INITIAL_STATE, ...initialState });
   const [viewMode, setViewMode] = useState<ViewMode>('orbit');
   const [cameraFocus, setCameraFocus] = useState<CameraFocus>('earth');
@@ -216,9 +218,15 @@ export function ThermalVisualizer({ initialState = INITIAL_STATE, onStateChange,
         />
       }
     >
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [8.4, 6.4, 9.2], fov: 45, near: 0.05, far: 120 }} gl={{ antialias: true, powerPreference: 'high-performance' }}>
-        <Suspense fallback={null}><ThermalScene state={state} derived={derived} viewMode={viewMode} cameraFocus={cameraFocus} /></Suspense>
-      </Canvas>
+      {isClient ? (
+        <Canvas shadows dpr={[1, 2]} camera={{ position: [8.4, 6.4, 9.2], fov: 45, near: 0.05, far: 120 }} gl={{ antialias: true, powerPreference: 'high-performance' }}>
+          <Suspense fallback={null}><ThermalScene state={state} derived={derived} viewMode={viewMode} cameraFocus={cameraFocus} /></Suspense>
+        </Canvas>
+      ) : (
+        <div style={{ height: '100%', minHeight: '480px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at center, #111827 0%, #030712 100%)', color: 'var(--text-muted)' }}>
+          <span>Interactive 3D orbital simulation</span>
+        </div>
+      )}
 
       <Overlay variant="intro" title="Orbital Thermal Balance">
         {viewMode === 'orbit'

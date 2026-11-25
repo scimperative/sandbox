@@ -34,6 +34,8 @@ type Props = {
 };
 
 export function SolarVisualizer({ initialState = INITIAL_STATE, onStateChange, onExport }: Props) {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => { setIsClient(true); }, []);
   const [state, setState] = useState<SolarState>({ ...INITIAL_STATE, ...initialState });
   const [viewMode, setViewMode] = useState<ViewMode>('orbit');
   const [cameraFocus, setCameraFocus] = useState<CameraFocus>('earth');
@@ -197,16 +199,22 @@ export function SolarVisualizer({ initialState = INITIAL_STATE, onStateChange, o
           />
         }
       >
-        <Canvas
-          shadows
-          dpr={[1, 2]}
-          camera={{ position: [8.4, 6.4, 9.2], fov: 45, near: 0.05, far: 120 }}
-          gl={{ antialias: true, powerPreference: 'high-performance' }}
-        >
-          <Suspense fallback={null}>
-            <SolarScene state={state} derived={derived} viewMode={viewMode} cameraFocus={cameraFocus} />
-          </Suspense>
-        </Canvas>
+        {isClient ? (
+          <Canvas
+            shadows
+            dpr={[1, 2]}
+            camera={{ position: [8.4, 6.4, 9.2], fov: 45, near: 0.05, far: 120 }}
+            gl={{ antialias: true, powerPreference: 'high-performance' }}
+          >
+            <Suspense fallback={null}>
+              <SolarScene state={state} derived={derived} viewMode={viewMode} cameraFocus={cameraFocus} />
+            </Suspense>
+          </Canvas>
+        ) : (
+          <div style={{ height: '100%', minHeight: '480px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at center, #111827 0%, #030712 100%)', color: 'var(--text-muted)' }}>
+            <span>Interactive 3D solar simulation</span>
+          </div>
+        )}
 
         <Overlay variant="intro" title="Solar Array Power Budget">
           {viewMode === 'orbit'
