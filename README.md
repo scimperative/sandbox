@@ -34,9 +34,9 @@ Whether the subject is orbital compute thermal limits, radar range equations or 
 
 | Module ID | Title | Domains | Status |
 | :--- | :--- | :--- | :--- |
-| `orbital-thermal-limits` | **Orbital Compute Thermal Rejection Limits** | Thermodynamics, radiative heat transfer, orbital mechanics, photovoltaics | 🟢 Live |
-| `solar-power-budget` | **Solar Array Electrical Power Budget** | Photovoltaics, orbital mechanics, power systems, space environment | 🟢 Live |
-| `llm-bitflip-resilience` | **LLM Bit-Flip Resilience** | AI infrastructure, radiation effects, reliability, memory | 🟡 Live · Sketch |
+| `SBX-MOD-001` (`orbital-thermal-limits`) | **Orbital Compute Thermal Rejection Limits** | Thermodynamics, radiative heat transfer, orbital mechanics, photovoltaics | 🟢 Live |
+| `SBX-MOD-002` (`solar-power-budget`) | **Solar Array Electrical Power Budget** | Photovoltaics, orbital mechanics, power systems, space environment | 🟢 Live |
+| `SBX-MOD-003` (`llm-bitflip-resilience`) | **LLM Bit-Flip Resilience** | AI infrastructure, radiation effects, reliability, memory | 🟡 Live · Sketch |
 
 ---
 
