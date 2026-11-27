@@ -18,7 +18,6 @@ interface ModuleBadgeRowProps {
  * stay correct automatically as companion modules are versioned independently.
  */
 export const ModuleBadgeRow: React.FC<ModuleBadgeRowProps> = ({ manifest }) => {
-  const { contractVersion } = manifest;
   // Build a version lookup map from the registry once per render.
   // getAllModules() is cheap (eager-imported, already in memory).
   const versionMap = React.useMemo<Record<string, string>>(() => {
@@ -44,7 +43,6 @@ export const ModuleBadgeRow: React.FC<ModuleBadgeRowProps> = ({ manifest }) => {
           label="module"
           value={`${manifest.id} v${manifest.releaseVersion}`}
         />
-        {contractVersion && <GithubBadge label="contract" value={`v${contractVersion}`} />}
         {manifest.realism && (
           <GithubBadge
             label="realism"
@@ -65,7 +63,7 @@ export const ModuleBadgeRow: React.FC<ModuleBadgeRowProps> = ({ manifest }) => {
                 key={modId}
                 label="interfaces"
                 value={value}
-                href={`/?module=${modId}`}
+                href={`/sandbox/${modId}/`}
                 title={`Open interfaced companion module: ${modId}`}
               />
             );
@@ -77,9 +75,16 @@ export const ModuleBadgeRow: React.FC<ModuleBadgeRowProps> = ({ manifest }) => {
       {manifest.tags.length > 0 && (
         <div style={rowStyle}>
           {manifest.tags.map((tag) => (
-            <span key={tag} className="sci-tag">
-              {tag}
-            </span>
+            <button
+              key={tag}
+              type="button"
+              className="entity-tag"
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent('sci-open-search', { detail: `#${tag}` }))
+              }
+            >
+              #{tag}
+            </button>
           ))}
         </div>
       )}

@@ -41,6 +41,11 @@
   text-decoration: none;
 }
 
+.sci-badge-link:hover,
+.sci-badge-link:hover * {
+  text-decoration: none;
+}
+
 .sci-badge--link {
   border-color: var(--accent-border);
 }
@@ -233,7 +238,7 @@
 /* question → concepts and equations → worked example → limits */
 
 .sci-chapter {
-  max-width: 780px;
+  max-width: 900px;
   margin: 0 auto 1.5rem;
   font-size: 0.95rem;
   line-height: 1.65;
